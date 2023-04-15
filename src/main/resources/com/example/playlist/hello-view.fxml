@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.playlist.HelloController">
+   <children>
+      <TableView fx:id="TableMusic" layoutX="106.0" layoutY="91.0" prefHeight="200.0" prefWidth="417.0">
+        <columns>
+          <TableColumn fx:id="idColumn" prefWidth="36.79999542236328" text="Id" />
+          <TableColumn fx:id="nameColumn" prefWidth="113.5999755859375" text="Name" />
+            <TableColumn fx:id="singerColumn" prefWidth="129.5999755859375" text="Singer" />
+            <TableColumn fx:id="albumColumn" prefWidth="136.19998168945312" text="Album" />
+        </columns>
+      </TableView>
+   </children>
+</Pane>

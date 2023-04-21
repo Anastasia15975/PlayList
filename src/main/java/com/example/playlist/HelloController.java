@@ -1,6 +1,7 @@
 package com.example.playlist;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,6 +17,10 @@ public class HelloController {
     public Button btnDel;
     @FXML
     public Button btnUpd;
+    @FXML
+    public TextField searchField;
+    @FXML
+    public Button btnSearch;
     @FXML
     private TableView<Music> TableMusic;
 
@@ -98,5 +103,20 @@ public class HelloController {
 
     public void updateMusic(ActionEvent actionEvent) {
 
+    }
+
+    public void searchMusic() throws SQLException, ClassNotFoundException {
+        String text = searchField.getText();
+
+        DBConnector connector = new DBConnector();
+        connection = connector.getConnection();
+
+
+        TableMusic.setItems(connector.getMusic("SELECT music.id, music.name, singer.name, album.name FROM playlist.music JOIN singer ON music.singerId = singer.id JOIN album ON music.albumId = album.id WHERE music.name = '" + text + "' OR singer.name = '" + text + "' OR album.name = '" + text + "'"));
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        singerColumn.setCellValueFactory(new PropertyValueFactory<>("singer"));
+        albumColumn.setCellValueFactory(new PropertyValueFactory<>("album"));
     }
 }

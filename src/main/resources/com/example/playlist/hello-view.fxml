@@ -16,9 +16,11 @@
             <TableColumn fx:id="albumColumn" prefWidth="148.60000610351562" text="Album" />
         </columns>
       </TableView>
-      <Button fx:id="btnAdd" layoutX="24.0" layoutY="377.0" mnemonicParsing="false" onAction="#addMusic" text="Добавить" />
+      <Button fx:id="btnAdd" layoutX="542.0" layoutY="331.0" mnemonicParsing="false" onAction="#addMusic" text="Добавить" />
       <TextField fx:id="nameField" layoutX="542.0" layoutY="202.0" />
       <TextField fx:id="singerField" layoutX="542.0" layoutY="241.0" />
       <TextField fx:id="albumField" layoutX="542.0" layoutY="285.0" />
+      <Button fx:id="btnDel" layoutX="546.0" layoutY="373.0" mnemonicParsing="false" onAction="#deleteMusic" text="Удалить" />
+      <Button fx:id="btnUpd" layoutX="622.0" layoutY="331.0" mnemonicParsing="false" onAction="#updateMusic" text="Изменить" />
    </children>
 </Pane>

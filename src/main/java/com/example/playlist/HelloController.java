@@ -1,6 +1,7 @@
 package com.example.playlist;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -11,6 +12,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class HelloController {
+    @FXML
+    public Button btnDel;
+    @FXML
+    public Button btnUpd;
     @FXML
     private TableView<Music> TableMusic;
 
@@ -78,5 +83,20 @@ public class HelloController {
         //добавление и вывод новой песни
         statement.executeUpdate("INSERT INTO music(music.name, music.singerId, music.albumId) VALUES ('" + name + "'," + idSinger + "," + idAlbum + ")");
         initialize();
+    }
+
+    public void deleteMusic() throws SQLException, ClassNotFoundException {
+        Music music = TableMusic.getSelectionModel().getSelectedItem();
+
+        DBConnector connector = new DBConnector();
+        connection = connector.getConnection();
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("DELETE FROM music WHERE music.id = " + music.getId());
+
+        initialize();
+    }
+
+    public void updateMusic(ActionEvent actionEvent) {
+
     }
 }

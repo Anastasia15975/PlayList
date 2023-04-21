@@ -101,8 +101,35 @@ public class HelloController {
         initialize();
     }
 
-    public void updateMusic(ActionEvent actionEvent) {
+    public void updateMusic() throws SQLException, ClassNotFoundException {
+        Music music = TableMusic.getSelectionModel().getSelectedItem();
 
+        DBConnector connector = new DBConnector();
+        connection = connector.getConnection();
+        Statement statement = connection.createStatement();
+
+        //поиск исполнителя, если нет в БД - добавляет
+        ResultSet setSinger = statement.executeQuery("SELECT singer.id FROM singer WHERE singer.name = '" + singerField.getText() + "'");
+        if(!setSinger.next()) {
+            statement.executeUpdate("INSERT INTO singer (singer.name) VALUES ('" + singerField.getText() + "')");
+        }
+        setSinger = statement.executeQuery("SELECT singer.id FROM singer WHERE singer.name = '" + singerField.getText() + "'");
+        setSinger.next();
+        int singerId = setSinger.getInt("singer.id");
+
+        //поиск альбома, если нет в БД - добавляет
+        ResultSet setAlbum = statement.executeQuery("SELECT album.id FROM album WHERE album.name = '" + albumField.getText() + "'");
+        if(!setAlbum.next()) {
+            statement.executeUpdate("INSERT INTO album (album.name) VALUES ('" + albumField.getText() + "')");
+        }
+        setAlbum = statement.executeQuery("SELECT album.id FROM album WHERE album.name = '" + albumField.getText() + "'");
+        setAlbum.next();
+        int albumId = setAlbum.getInt("album.id");
+
+        //обновление музыки
+        statement.executeUpdate("UPDATE music SET music.name = '" + nameField.getText() + "', music.singerId = " + singerId + ", music.albumId = " + albumId + " WHERE music.id = " + music.getId());
+
+        initialize();
     }
 
     public void searchMusic() throws SQLException, ClassNotFoundException {
